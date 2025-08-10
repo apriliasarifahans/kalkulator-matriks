@@ -2,260 +2,437 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kalkulator Matriks - Tema Gen Z</title>
+  <title>Kalkulator Matriks</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link
-    rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
   />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap"
+    rel="stylesheet"
+  />
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      color: #e0e7ff;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at center, #3b0a0a, #0a1a3b, #1a2a4a);
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+      color: #dce7f1;
     }
-    input[type="number"] {
-      background-color: #1e293b;
-      border: 1.5px solid #64748b;
-      color: #cbd5e1;
-      transition: border-color 0.3s ease, background-color 0.3s ease;
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      background: linear-gradient(90deg, #ff6f6f, #6fa8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+      text-shadow:
+        0 0 5px rgba(255,111,111,0.7),
+        0 0 10px rgba(111,168,255,0.7),
+        0 0 20px rgba(255,111,111,0.5),
+        0 0 40px rgba(111,168,255,0.5);
     }
-    input[type="number"]:focus {
-      outline: none;
-      border-color: #7c3aed;
-      background-color: #272f4a;
-      color: #e0e7ff;
-      box-shadow: 0 0 8px #7c3aed88;
+    .dimension-inputs {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
     }
-    button {
-      font-weight: 600;
-      box-shadow: 0 4px 8px rgb(124 58 237 / 0.3);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    button:hover {
-      box-shadow: 0 6px 12px rgb(124 58 237 / 0.6);
-    }
-    #resultContainer {
-      background-color: #0f172a;
-      border: 1.5px solid #7c3aed;
-      box-shadow: 0 0 12px #7c3aedaa inset;
-      border-radius: 0.5rem;
-      min-height: 120px;
-      font-weight: 600;
-      font-size: 1.125rem;
-      color: #d8b4fe;
-      overflow-x: auto;
-      padding: 1rem;
-    }
-    table {
-      border-collapse: separate;
-      border-spacing: 8px 6px;
-      margin: 0 auto;
+    .dimension-inputs label {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #a3b9ff;
       user-select: none;
     }
-    td {
-      background-color: #272f4a;
-      border-radius: 0.375rem;
-      padding: 0.5rem 1rem;
-      min-width: 48px;
+    .dimension-inputs input {
+      width: 4.5rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-weight: 700;
+      font-size: 1.1rem;
       text-align: center;
-      font-variant-numeric: tabular-nums;
-      color: #d8b4fe;
-      box-shadow: 0 2px 6px rgb(124 58 237 / 0.4);
+      background: #1a2a4a;
+      color: #a3b9ff;
+      box-shadow:
+        inset 0 0 8px #6fa8ff;
       transition: background-color 0.3s ease;
     }
-    td:hover {
-      background-color: #3b3f72;
-      box-shadow: 0 4px 10px rgb(124 58 237 / 0.7);
-      cursor: default;
+    .dimension-inputs input:focus {
+      outline: none;
+      background-color: #6fa8ff33;
+      box-shadow:
+        0 0 10px #6fa8ff,
+        inset 0 0 12px #6fa8ff;
+      color: #6fa8ff;
     }
-    h1, h2 {
-      text-shadow: 0 0 6px #7c3aedaa;
+    button#generateBtn {
+      background: linear-gradient(135deg, #ff6f6f, #6fa8ff);
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.75rem 2rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #1a2a4a;
+      cursor: pointer;
+      box-shadow:
+        0 0 15px #ff6f6f,
+        inset 0 0 20px #6fa8ff;
+      transition: all 0.3s ease;
+      user-select: none;
+      margin-top: 0.5rem;
     }
-    label {
-      color: #a5b4fc;
-      font-weight: 600;
+    button#generateBtn:hover {
+      background: linear-gradient(135deg, #6fa8ff, #ff6f6f);
+      box-shadow:
+        0 0 25px #ff6f6f,
+        inset 0 0 25px #6fa8ff;
+      color: #1a2a4a;
+      transform: scale(1.05);
     }
-    /* Scrollbar for result container */
-    #resultContainer::-webkit-scrollbar {
-      height: 8px;
+    button#generateBtn:active {
+      transform: scale(0.98);
     }
-    #resultContainer::-webkit-scrollbar-track {
-      background: #0f172a;
+    .matrices-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 2rem;
     }
-    #resultContainer::-webkit-scrollbar-thumb {
-      background: #7c3aed;
-      border-radius: 4px;
+    .matrix-box {
+      background: linear-gradient(145deg, #1a2a4a, #3b0a0a);
+      border-radius: 1rem;
+      box-shadow:
+        0 0 15px #6fa8ff,
+        inset 0 0 20px #ff6f6f;
+      padding: 1.5rem 1.5rem 2rem;
+      min-width: 280px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: auto;
     }
-    /* Responsive tweaks */
+    .matrix-box h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #ff6f6f, #6fa8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+      text-shadow:
+        0 0 10px rgba(255,111,111,0.7),
+        0 0 10px rgba(111,168,255,0.7);
+    }
+    .matrix-inputs {
+      display: grid;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+    .matrix-inputs input {
+      width: 3.8rem;
+      height: 3.8rem;
+      border-radius: 0.5rem;
+      border: none;
+      background: #3b0a0a;
+      color: #ffbaba;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-align: center;
+      box-shadow:
+        inset 0 0 10px #ff6f6f;
+      transition: background-color 0.3s ease;
+    }
+    .matrix-inputs input:focus {
+      outline: none;
+      background-color: #ff6f6f33;
+      box-shadow:
+        0 0 15px #ff6f6f,
+        inset 0 0 15px #ff6f6f;
+      color: #ff6f6f;
+    }
+    .buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 1100px;
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+    button.action-btn {
+      background: linear-gradient(135deg, #ff6f6f, #6fa8ff);
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.8rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #1a2a4a;
+      cursor: pointer;
+      box-shadow:
+        0 0 15px #ff6f6f,
+        inset 0 0 20px #6fa8ff;
+      transition: all 0.3s ease;
+      flex: 1 1 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      user-select: none;
+      white-space: nowrap;
+    }
+    button.action-btn:hover {
+      background: linear-gradient(135deg, #6fa8ff, #ff6f6f);
+      box-shadow:
+        0 0 25px #ff6f6f,
+        inset 0 0 25px #6fa8ff;
+      color: #1a2a4a;
+      transform: scale(1.05);
+    }
+    button.action-btn:active {
+      transform: scale(0.98);
+    }
+    button.action-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+      background: #55555588;
+      color: #ccccccaa;
+      transform: none;
+    }
+    .result-box {
+      background: linear-gradient(145deg, #1a2a4a, #3b0a0a);
+      border-radius: 1rem;
+      box-shadow:
+        0 0 15px #6fa8ff,
+        inset 0 0 20px #ff6f6f;
+      padding: 1.5rem 1.5rem 2rem;
+      min-width: 280px;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #ffbaba;
+      font-weight: 700;
+      font-size: 1.25rem;
+      min-height: 160px;
+      user-select: text;
+      overflow-x: auto;
+    }
+    .result-box h2 {
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      background: linear-gradient(90deg, #ff6f6f, #6fa8ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      user-select: none;
+      text-shadow:
+        0 0 10px rgba(255,111,111,0.7),
+        0 0 10px rgba(111,168,255,0.7);
+    }
+    .result-matrix {
+      display: grid;
+      gap: 0.7rem;
+      overflow-x: auto;
+    }
+    .result-matrix div {
+      background: #330011;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        inset 0 0 10px #ff6f6f;
+      font-size: 1.25rem;
+      color: #ffbaba;
+      font-weight: 700;
+      min-width: 3.8rem;
+      min-height: 3.8rem;
+      user-select: text;
+      white-space: nowrap;
+      padding: 0 0.3rem;
+    }
     @media (max-width: 640px) {
-      #matrixAForm, #matrixBForm {
-        grid-template-columns: repeat(2, minmax(40px, 1fr)) !important;
+      .matrices-wrapper {
+        flex-direction: column;
+        align-items: center;
       }
-      button {
-        font-size: 0.875rem;
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+      .buttons-container {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      button.action-btn {
+        flex: 1 1 100%;
+      }
+      .dimension-inputs {
+        flex-direction: column;
+        gap: 1rem;
       }
     }
   </style>
 </head>
-<body class="flex flex-col items-center p-6">
-  <h1 class="text-4xl font-extrabold mb-8 text-center tracking-wide select-none">Kalkulator Matriks</h1>
+<body>
+  <h1><i class="fas fa-calculator"></i> Kalkulator Matriks</h1>
 
-  <div class="w-full max-w-5xl bg-gradient-to-br from-[#1e293b] to-[#0f172a] rounded-2xl shadow-2xl p-8 space-y-8 border border-[#7c3aed]">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-      <!-- Matrix A -->
-      <section>
-        <h2 class="text-2xl font-semibold mb-4 select-none">Matriks A</h2>
-        <div class="flex flex-wrap gap-4 items-center mb-4">
-          <label for="rowsA" class="block">Baris:</label>
-          <input
-            type="number"
-            id="rowsA"
-            min="1"
-            max="5"
-            value="2"
-            class="w-16 p-2 rounded-md"
-          />
-          <label for="colsA" class="block">Kolom:</label>
-          <input
-            type="number"
-            id="colsA"
-            min="1"
-            max="5"
-            value="2"
-            class="w-16 p-2 rounded-md"
-          />
-          <button
-            id="generateA"
-            class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-5 py-2 rounded-lg shadow-lg flex items-center space-x-2 select-none"
-            aria-label="Buat Matriks A"
-          >
-            <i class="fas fa-layer-group"></i>
-            <span>Buat Matriks</span>
-          </button>
-        </div>
-        <form id="matrixAForm" class="grid grid-cols-2 gap-3"></form>
-      </section>
+  <form id="dimensionForm" class="dimension-inputs" aria-label="Input ukuran matriks">
+    <label for="rowsA">Baris Matriks A:</label>
+    <input type="number" id="rowsA" name="rowsA" min="1" max="6" value="3" aria-describedby="rowsADesc" required />
+    <span id="rowsADesc" class="sr-only">Masukkan jumlah baris Matriks A, antara 1 sampai 6</span>
 
-      <!-- Matrix B -->
-      <section>
-        <h2 class="text-2xl font-semibold mb-4 select-none">Matriks B</h2>
-        <div class="flex flex-wrap gap-4 items-center mb-4">
-          <label for="rowsB" class="block">Baris:</label>
-          <input
-            type="number"
-            id="rowsB"
-            min="1"
-            max="5"
-            value="2"
-            class="w-16 p-2 rounded-md"
-          />
-          <label for="colsB" class="block">Kolom:</label>
-          <input
-            type="number"
-            id="colsB"
-            min="1"
-            max="5"
-            value="2"
-            class="w-16 p-2 rounded-md"
-          />
-          <button
-            id="generateB"
-            class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-5 py-2 rounded-lg shadow-lg flex items-center space-x-2 select-none"
-            aria-label="Buat Matriks B"
-          >
-            <i class="fas fa-layer-group"></i>
-            <span>Buat Matriks</span>
-          </button>
-        </div>
-        <form id="matrixBForm" class="grid grid-cols-2 gap-3"></form>
-      </section>
-    </div>
+    <label for="colsA">Kolom Matriks A:</label>
+    <input type="number" id="colsA" name="colsA" min="1" max="6" value="3" aria-describedby="colsADesc" required />
+    <span id="colsADesc" class="sr-only">Masukkan jumlah kolom Matriks A, antara 1 sampai 6</span>
 
-    <div class="flex flex-wrap justify-center gap-5">
-      <button
-        id="addBtn"
-        class="bg-gradient-to-r from-green-500 to-green-700 text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-3 select-none hover:brightness-110"
-        aria-label="Tambah Matriks A dan B"
-      >
-        <i class="fas fa-plus text-lg"></i><span>Tambah (A + B)</span>
-      </button>
-      <button
-        id="subtractBtn"
-        class="bg-gradient-to-r from-red-500 to-red-700 text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-3 select-none hover:brightness-110"
-        aria-label="Kurangi Matriks B dari A"
-      >
-        <i class="fas fa-minus text-lg"></i><span>Kurang (A - B)</span>
-      </button>
-      <button
-        id="multiplyBtn"
-        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-3 select-none hover:brightness-110"
-        aria-label="Kali Matriks A dan B"
-      >
-        <i class="fas fa-times text-lg"></i><span>Kali (A × B)</span>
-      </button>
-      <button
-        id="transposeABtn"
-        class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 px-6 py-3 rounded-xl shadow-lg flex items-center space-x-3 select-none hover:brightness-110"
-        aria-label="Transpos Matriks A"
-      >
-        <i class="fas fa-exchange-alt text-lg"></i><span>Transpos Matriks A</span>
-      </button>
-      <button
-        id="transposeBBtn"
-        class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 px-6 py-3 rounded-xl shadow-lg flex items-center space-x-3 select-none hover:brightness-110"
-        aria-label="Transpos Matriks B"
-      >
-        <i class="fas fa-exchange-alt text-lg"></i><span>Transpos Matriks B</span>
-      </button>
-      <button
-        id="clearBtn"
-        class="bg-gradient-to-r from-gray-600 to-gray-800 text-white px-6 py-3 rounded-xl shadow-lg flex items-center space-x-3 select-none hover:brightness-110"
-        aria-label="Bersihkan semua input dan hasil"
-      >
-        <i class="fas fa-trash-alt text-lg"></i><span>Bersihkan</span>
-      </button>
-    </div>
+    <label for="rowsB">Baris Matriks B:</label>
+    <input type="number" id="rowsB" name="rowsB" min="1" max="6" value="3" aria-describedby="rowsBDesc" required />
+    <span id="rowsBDesc" class="sr-only">Masukkan jumlah baris Matriks B, antara 1 sampai 6</span>
 
-    <section>
-      <h2 class="text-2xl font-semibold mb-4 select-none">Hasil</h2>
-      <div id="resultContainer" aria-live="polite" aria-atomic="true">
-        <p class="text-center text-gray-400 select-none">Hasil akan muncul di sini</p>
-      </div>
+    <label for="colsB">Kolom Matriks B:</label>
+    <input type="number" id="colsB" name="colsB" min="1" max="6" value="3" aria-describedby="colsBDesc" required />
+    <span id="colsBDesc" class="sr-only">Masukkan jumlah kolom Matriks B, antara 1 sampai 6</span>
+
+    <button id="generateBtn" type="submit" aria-label="Buat matriks dengan ukuran yang diinput">
+      <i class="fas fa-cogs"></i> Buat Matriks
+    </button>
+  </form>
+
+  <div class="matrices-wrapper" aria-live="polite" aria-atomic="true">
+    <section class="matrix-box" id="matrixAContainer" aria-label="Matriks A">
+      <h2><i class="fas fa-th-large"></i> Matriks A</h2>
+      <div class="matrix-inputs" id="matrixAInputs" role="grid" aria-readonly="false"></div>
+    </section>
+
+    <section class="matrix-box" id="matrixBContainer" aria-label="Matriks B">
+      <h2><i class="fas fa-th"></i> Matriks B</h2>
+      <div class="matrix-inputs" id="matrixBInputs" role="grid" aria-readonly="false"></div>
     </section>
   </div>
 
+  <div class="buttons-container" role="region" aria-label="Operasi matriks">
+    <button class="action-btn" id="addBtn" type="button" aria-describedby="descAdd" disabled>
+      <i class="fas fa-plus"></i> Tambah
+    </button>
+    <button class="action-btn" id="subBtn" type="button" aria-describedby="descSub" disabled>
+      <i class="fas fa-minus"></i> Kurang
+    </button>
+    <button class="action-btn" id="mulBtn" type="button" aria-describedby="descMul" disabled>
+      <i class="fas fa-times"></i> Kali
+    </button>
+    <button class="action-btn" id="transA" type="button" aria-describedby="descTransA" disabled>
+      <i class="fas fa-exchange-alt"></i> Transpose A
+    </button>
+    <button class="action-btn" id="transB" type="button" aria-describedby="descTransB" disabled>
+      <i class="fas fa-exchange-alt"></i> Transpose B
+    </button>
+    <button class="action-btn" id="detA" type="button" aria-describedby="descDetA" disabled>
+      <i class="fas fa-calculator"></i> Determinan A
+    </button>
+    <button class="action-btn" id="detB" type="button" aria-describedby="descDetB" disabled>
+      <i class="fas fa-calculator"></i> Determinan B
+    </button>
+    <button class="action-btn" id="invA" type="button" aria-describedby="descInvA" disabled>
+      <i class="fas fa-undo"></i> Invers A
+    </button>
+    <button class="action-btn" id="invB" type="button" aria-describedby="descInvB" disabled>
+      <i class="fas fa-undo"></i> Invers B
+    </button>
+  </div>
+
+  <section class="result-box" aria-live="polite" aria-atomic="true" aria-label="Hasil operasi matriks">
+    <h2>Hasil</h2>
+    <div id="resultMatrix" class="result-matrix" aria-hidden="true"></div>
+    <div id="resultScalar" class="mt-2 text-center text-2xl font-bold"></div>
+  </section>
+
   <script>
-    // Utility to create matrix input fields
-    function createMatrixInputs(container, rows, cols, matrixId) {
-      container.innerHTML = "";
-      container.style.gridTemplateColumns = `repeat(${cols}, minmax(40px, 1fr))`;
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const input = document.createElement("input");
-          input.type = "number";
-          input.step = "any";
-          input.value = "0";
-          input.className =
-            "border border-gray-300 rounded p-1 text-center focus:outline-none focus:ring-2 focus:ring-blue-400";
-          input.id = `${matrixId}-${r}-${c}`;
-          input.setAttribute("aria-label", `Input matriks ${matrixId} baris ${r + 1} kolom ${c + 1}`);
+    const maxSize = 6;
+
+    const dimensionForm = document.getElementById('dimensionForm');
+    const matrixAInputs = document.getElementById('matrixAInputs');
+    const matrixBInputs = document.getElementById('matrixBInputs');
+    const addBtn = document.getElementById('addBtn');
+    const subBtn = document.getElementById('subBtn');
+    const mulBtn = document.getElementById('mulBtn');
+    const transA = document.getElementById('transA');
+    const transB = document.getElementById('transB');
+    const detA = document.getElementById('detA');
+    const detB = document.getElementById('detB');
+    const invA = document.getElementById('invA');
+    const invB = document.getElementById('invB');
+    const resultMatrix = document.getElementById('resultMatrix');
+    const resultScalar = document.getElementById('resultScalar');
+
+    let rowsA, colsA, rowsB, colsB;
+
+    function disableOperations() {
+      [
+        addBtn,
+        subBtn,
+        mulBtn,
+        transA,
+        transB,
+        detA,
+        detB,
+        invA,
+        invB,
+      ].forEach((btn) => (btn.disabled = true));
+    }
+
+    function updateOperationButtons() {
+      transA.disabled = false;
+      transB.disabled = false;
+
+      const canAddSub = rowsA === rowsB && colsA === colsB;
+      addBtn.disabled = !canAddSub;
+      subBtn.disabled = !canAddSub;
+
+      mulBtn.disabled = colsA !== rowsB;
+
+      detA.disabled = rowsA !== colsA;
+      detB.disabled = rowsB !== colsB;
+      invA.disabled = rowsA !== colsA;
+      invB.disabled = rowsB !== colsB;
+    }
+
+    function createMatrixInputs(container, prefix, rows, cols) {
+      container.innerHTML = '';
+      container.style.gridTemplateColumns = `repeat(${cols}, 3.8rem)`;
+      container.style.gridTemplateRows = `repeat(${rows}, 3.8rem)`;
+      container.setAttribute('aria-rowcount', rows);
+      container.setAttribute('aria-colcount', cols);
+
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.inputMode = 'numeric';
+          input.id = prefix + i + j;
+          input.setAttribute('aria-label', `Baris ${i + 1} kolom ${j + 1} matriks ${prefix.toUpperCase()}`);
+          input.value = '0';
+          input.min = '-999999';
+          input.max = '999999';
           container.appendChild(input);
         }
       }
     }
 
-    // Read matrix values from inputs
-    function readMatrix(rows, cols, matrixId) {
+    function getMatrix(prefix, rows, cols) {
       const matrix = [];
-      for (let r = 0; r < rows; r++) {
+      for (let i = 0; i < rows; i++) {
         const row = [];
-        for (let c = 0; c < cols; c++) {
-          const val = parseFloat(document.getElementById(`${matrixId}-${r}-${c}`).value);
+        for (let j = 0; j < cols; j++) {
+          const val = parseFloat(document.getElementById(prefix + i + j).value);
           row.push(isNaN(val) ? 0 : val);
         }
         matrix.push(row);
@@ -263,63 +440,69 @@
       return matrix;
     }
 
-    // Render matrix as HTML table
-    function renderMatrix(matrix) {
-      if (!matrix.length) return "<p class='text-gray-500 text-center'>Matriks kosong</p>";
-      let html = '<table class="table-auto mx-auto border-collapse border border-transparent">';
-      for (const row of matrix) {
-        html += '<tr>';
-        for (const val of row) {
-          html += `<td>${val}</td>`;
+    function displayMatrix(matrix) {
+      const container = resultMatrix;
+      const scalar = resultScalar;
+      scalar.textContent = '';
+      container.innerHTML = '';
+      container.setAttribute('aria-hidden', 'false');
+
+      const rows = matrix.length;
+      const cols = matrix[0]?.length || 0;
+      container.style.gridTemplateColumns = `repeat(${cols}, 3.8rem)`;
+      container.style.gridTemplateRows = `repeat(${rows}, 3.8rem)`;
+
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const cell = document.createElement('div');
+          const val = matrix[i][j];
+          cell.textContent = Number.isInteger(val) ? val : val.toFixed(3);
+          container.appendChild(cell);
         }
-        html += '</tr>';
       }
-      html += '</table>';
-      return html;
     }
 
-    // Matrix operations
+    function displayScalar(value) {
+      resultMatrix.innerHTML = '';
+      resultMatrix.setAttribute('aria-hidden', 'true');
+      resultScalar.textContent = 'Nilai: ' + (Number.isInteger(value) ? value : value.toFixed(5));
+    }
+
     function addMatrices(A, B) {
-      if (A.length !== B.length || A[0].length !== B[0].length) return null;
-      const rows = A.length;
-      const cols = A[0].length;
       const result = [];
-      for (let r = 0; r < rows; r++) {
+      for (let i = 0; i < A.length; i++) {
         const row = [];
-        for (let c = 0; c < cols; c++) {
-          row.push(A[r][c] + B[r][c]);
+        for (let j = 0; j < A[0].length; j++) {
+          row.push(A[i][j] + B[i][j]);
         }
         result.push(row);
       }
       return result;
     }
 
-    function subtractMatrices(A, B) {
-      if (A.length !== B.length || A[0].length !== B[0].length) return null;
-      const rows = A.length;
-      const cols = A[0].length;
+    function subMatrices(A, B) {
       const result = [];
-      for (let r = 0; r < rows; r++) {
+      for (let i = 0; i < A.length; i++) {
         const row = [];
-        for (let c = 0; c < cols; c++) {
-          row.push(A[r][c] - B[r][c]);
+        for (let j = 0; j < A[0].length; j++) {
+          row.push(A[i][j] - B[i][j]);
         }
         result.push(row);
       }
       return result;
     }
 
-    function multiplyMatrices(A, B) {
-      if (A[0].length !== B.length) return null;
-      const rows = A.length;
-      const cols = B[0].length;
+    function mulMatrices(A, B) {
       const result = [];
-      for (let r = 0; r < rows; r++) {
+      const rowsA = A.length;
+      const colsA = A[0].length;
+      const colsB = B[0].length;
+      for (let i = 0; i < rowsA; i++) {
         const row = [];
-        for (let c = 0; c < cols; c++) {
+        for (let j = 0; j < colsB; j++) {
           let sum = 0;
-          for (let k = 0; k < A[0].length; k++) {
-            sum += A[r][k] * B[k][c];
+          for (let k = 0; k < colsA; k++) {
+            sum += A[i][k] * B[k][j];
           }
           row.push(sum);
         }
@@ -332,152 +515,204 @@
       const rows = M.length;
       const cols = M[0].length;
       const result = [];
-      for (let c = 0; c < cols; c++) {
+      for (let i = 0; i < cols; i++) {
         const row = [];
-        for (let r = 0; r < rows; r++) {
-          row.push(M[r][c]);
+        for (let j = 0; j < rows; j++) {
+          row.push(M[j][i]);
         }
         result.push(row);
       }
       return result;
     }
 
-    // Elements
-    const rowsAInput = document.getElementById("rowsA");
-    const colsAInput = document.getElementById("colsA");
-    const generateABtn = document.getElementById("generateA");
-    const matrixAForm = document.getElementById("matrixAForm");
+    function determinant(M) {
+      const n = M.length;
+      if (n !== M[0].length) return null;
 
-    const rowsBInput = document.getElementById("rowsB");
-    const colsBInput = document.getElementById("colsB");
-    const generateBBtn = document.getElementById("generateB");
-    const matrixBForm = document.getElementById("matrixBForm");
+      if (n === 1) return M[0][0];
+      if (n === 2) return M[0][0] * M[1][1] - M[0][1] * M[1][0];
 
-    const addBtn = document.getElementById("addBtn");
-    const subtractBtn = document.getElementById("subtractBtn");
-    const multiplyBtn = document.getElementById("multiplyBtn");
-    const transposeABtn = document.getElementById("transposeABtn");
-    const transposeBBtn = document.getElementById("transposeBBtn");
-    const clearBtn = document.getElementById("clearBtn");
+      let det = 0;
+      for (let c = 0; c < n; c++) {
+        det += ((c % 2 === 0 ? 1 : -1) * M[0][c] * determinant(minor(M, 0, c)));
+      }
+      return det;
+    }
 
-    const resultContainer = document.getElementById("resultContainer");
+    function minor(M, row, col) {
+      const minorM = [];
+      for (let i = 0; i < M.length; i++) {
+        if (i === row) continue;
+        const newRow = [];
+        for (let j = 0; j < M.length; j++) {
+          if (j === col) continue;
+          newRow.push(M[i][j]);
+        }
+        minorM.push(newRow);
+      }
+      return minorM;
+    }
 
-    // Initial generate matrices
-    createMatrixInputs(matrixAForm, parseInt(rowsAInput.value), parseInt(colsAInput.value), "A");
-    createMatrixInputs(matrixBForm, parseInt(rowsBInput.value), parseInt(colsBInput.value), "B");
+    function inverseMatrix(M) {
+      const n = M.length;
+      if (n !== M[0].length) return null;
 
-    // Generate matrix A inputs on button click
-    generateABtn.addEventListener("click", () => {
-      let rows = parseInt(rowsAInput.value);
-      let cols = parseInt(colsAInput.value);
-      if (rows < 1) rows = 1;
-      if (cols < 1) cols = 1;
-      if (rows > 5) rows = 5;
-      if (cols > 5) cols = 5;
-      rowsAInput.value = rows;
-      colsAInput.value = cols;
-      createMatrixInputs(matrixAForm, rows, cols, "A");
-      resultContainer.innerHTML = "<p class='text-gray-400 text-center select-none'>Hasil akan muncul di sini</p>";
-    });
+      const det = determinant(M);
+      if (det === 0 || det === null) return null;
 
-    // Generate matrix B inputs on button click
-    generateBBtn.addEventListener("click", () => {
-      let rows = parseInt(rowsBInput.value);
-      let cols = parseInt(colsBInput.value);
-      if (rows < 1) rows = 1;
-      if (cols < 1) cols = 1;
-      if (rows > 5) rows = 5;
-      if (cols > 5) cols = 5;
-      rowsBInput.value = rows;
-      colsBInput.value = cols;
-      createMatrixInputs(matrixBForm, rows, cols, "B");
-      resultContainer.innerHTML = "<p class='text-gray-400 text-center select-none'>Hasil akan muncul di sini</p>";
-    });
+      if (n === 1) return [[1 / M[0][0]]];
 
-    // Add matrices
-    addBtn.addEventListener("click", () => {
-      const rowsA = parseInt(rowsAInput.value);
-      const colsA = parseInt(colsAInput.value);
-      const rowsB = parseInt(rowsBInput.value);
-      const colsB = parseInt(colsBInput.value);
+      const cofactors = [];
+      for (let r = 0; r < n; r++) {
+        const cofactorRow = [];
+        for (let c = 0; c < n; c++) {
+          const minorM = minor(M, r, c);
+          const cofactor = determinant(minorM);
+          cofactorRow.push(((r + c) % 2 === 0 ? 1 : -1) * cofactor);
+        }
+        cofactors.push(cofactorRow);
+      }
 
-      if (rowsA !== rowsB || colsA !== colsB) {
-        resultContainer.innerHTML =
-          '<p class="text-red-500 font-semibold text-center select-none">Error: Matriks harus memiliki ukuran yang sama untuk penjumlahan.</p>';
+      const adjoint = transposeMatrix(cofactors);
+
+      const inv = adjoint.map(row => row.map(val => val / det));
+      return inv;
+    }
+
+    function validateDimensions(rA, cA, rB, cB) {
+      const vals = [rA, cA, rB, cB];
+      return vals.every(v => Number.isInteger(v) && v >= 1 && v <= maxSize);
+    }
+
+    dimensionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      rowsA = parseInt(dimensionForm.rowsA.value, 10);
+      colsA = parseInt(dimensionForm.colsA.value, 10);
+      rowsB = parseInt(dimensionForm.rowsB.value, 10);
+      colsB = parseInt(dimensionForm.colsB.value, 10);
+
+      if (!validateDimensions(rowsA, colsA, rowsB, colsB)) {
+        alert(`Ukuran matriks harus bilangan bulat antara 1 sampai ${maxSize}`);
         return;
       }
 
-      const A = readMatrix(rowsA, colsA, "A");
-      const B = readMatrix(rowsB, colsB, "B");
-      const result = addMatrices(A, B);
-      resultContainer.innerHTML = renderMatrix(result);
+      createMatrixInputs(matrixAInputs, 'a', rowsA, colsA);
+      createMatrixInputs(matrixBInputs, 'b', rowsB, colsB);
+
+      updateOperationButtons();
+      clearResult();
     });
 
-    // Subtract matrices
-    subtractBtn.addEventListener("click", () => {
-      const rowsA = parseInt(rowsAInput.value);
-      const colsA = parseInt(colsAInput.value);
-      const rowsB = parseInt(rowsBInput.value);
-      const colsB = parseInt(colsBInput.value);
+    function clearResult() {
+      resultMatrix.innerHTML = '';
+      resultMatrix.setAttribute('aria-hidden', 'true');
+      resultScalar.textContent = '';
+    }
 
+    addBtn.addEventListener('click', () => {
+      const A = getMatrix('a', rowsA, colsA);
+      const B = getMatrix('b', rowsB, colsB);
       if (rowsA !== rowsB || colsA !== colsB) {
-        resultContainer.innerHTML =
-          '<p class="text-red-500 font-semibold text-center select-none">Error: Matriks harus memiliki ukuran yang sama untuk pengurangan.</p>';
+        alert('Penjumlahan hanya bisa dilakukan jika ukuran Matriks A dan B sama.');
         return;
       }
-
-      const A = readMatrix(rowsA, colsA, "A");
-      const B = readMatrix(rowsB, colsB, "B");
-      const result = subtractMatrices(A, B);
-      resultContainer.innerHTML = renderMatrix(result);
+      const res = addMatrices(A, B);
+      displayMatrix(res);
     });
 
-    // Multiply matrices
-    multiplyBtn.addEventListener("click", () => {
-      const rowsA = parseInt(rowsAInput.value);
-      const colsA = parseInt(colsAInput.value);
-      const rowsB = parseInt(rowsBInput.value);
-      const colsB = parseInt(colsBInput.value);
+    subBtn.addEventListener('click', () => {
+      const A = getMatrix('a', rowsA, colsA);
+      const B = getMatrix('b', rowsB, colsB);
+      if (rowsA !== rowsB || colsA !== colsB) {
+        alert('Pengurangan hanya bisa dilakukan jika ukuran Matriks A dan B sama.');
+        return;
+      }
+      const res = subMatrices(A, B);
+      displayMatrix(res);
+    });
 
+    mulBtn.addEventListener('click', () => {
+      const A = getMatrix('a', rowsA, colsA);
+      const B = getMatrix('b', rowsB, colsB);
       if (colsA !== rowsB) {
-        resultContainer.innerHTML =
-          '<p class="text-red-500 font-semibold text-center select-none">Error: Kolom matriks A harus sama dengan baris matriks B untuk perkalian.</p>';
+        alert('Perkalian hanya bisa dilakukan jika kolom Matriks A sama dengan baris Matriks B.');
         return;
       }
-
-      const A = readMatrix(rowsA, colsA, "A");
-      const B = readMatrix(rowsB, colsB, "B");
-      const result = multiplyMatrices(A, B);
-      resultContainer.innerHTML = renderMatrix(result);
+      const res = mulMatrices(A, B);
+      displayMatrix(res);
     });
 
-    // Transpose matrix A
-    transposeABtn.addEventListener("click", () => {
-      const rowsA = parseInt(rowsAInput.value);
-      const colsA = parseInt(colsAInput.value);
-      const A = readMatrix(rowsA, colsA, "A");
-      const result = transposeMatrix(A);
-      resultContainer.innerHTML = renderMatrix(result);
+    transA.addEventListener('click', () => {
+      const A = getMatrix('a', rowsA, colsA);
+      const res = transposeMatrix(A);
+      displayMatrix(res);
     });
 
-    // Transpose matrix B
-    transposeBBtn.addEventListener("click", () => {
-      const rowsB = parseInt(rowsBInput.value);
-      const colsB = parseInt(colsBInput.value);
-      const B = readMatrix(rowsB, colsB, "B");
-      const result = transposeMatrix(B);
-      resultContainer.innerHTML = renderMatrix(result);
+    transB.addEventListener('click', () => {
+      const B = getMatrix('b', rowsB, colsB);
+      const res = transposeMatrix(B);
+      displayMatrix(res);
     });
 
-    // Clear all inputs and result
-    clearBtn.addEventListener("click", () => {
-      rowsAInput.value = 2;
-      colsAInput.value = 2;
-      rowsBInput.value = 2;
-      colsBInput.value = 2;
-      createMatrixInputs(matrixAForm, 2, 2, "A");
-      createMatrixInputs(matrixBForm, 2, 2, "B");
-      resultContainer.innerHTML = "<p class='text-gray-400 text-center select-none'>Hasil akan muncul di sini</p>";
+    detA.addEventListener('click', () => {
+      if (rowsA !== colsA) {
+        alert('Determinan hanya bisa dihitung untuk matriks persegi pada Matriks A.');
+        return;
+      }
+      const A = getMatrix('a', rowsA, colsA);
+      const det = determinant(A);
+      if (det === null) {
+        alert('Gagal menghitung determinan Matriks A.');
+        return;
+      }
+      displayScalar(det);
+    });
+
+    detB.addEventListener('click', () => {
+      if (rowsB !== colsB) {
+        alert('Determinan hanya bisa dihitung untuk matriks persegi pada Matriks B.');
+        return;
+      }
+      const B = getMatrix('b', rowsB, colsB);
+      const det = determinant(B);
+      if (det === null) {
+        alert('Gagal menghitung determinan Matriks B.');
+        return;
+      }
+      displayScalar(det);
+    });
+
+    invA.addEventListener('click', () => {
+      if (rowsA !== colsA) {
+        alert('Invers hanya bisa dihitung untuk matriks persegi pada Matriks A.');
+        return;
+      }
+      const A = getMatrix('a', rowsA, colsA);
+      const inv = inverseMatrix(A);
+      if (inv === null) {
+        alert('Matriks A tidak memiliki invers (determinan = 0 atau tidak persegi).');
+        return;
+      }
+      displayMatrix(inv);
+    });
+
+    invB.addEventListener('click', () => {
+      if (rowsB !== colsB) {
+        alert('Invers hanya bisa dihitung untuk matriks persegi pada Matriks B.');
+        return;
+      }
+      const B = getMatrix('b', rowsB, colsB);
+      const inv = inverseMatrix(B);
+      if (inv === null) {
+        alert('Matriks B tidak memiliki invers (determinan = 0 atau tidak persegi).');
+        return;
+      }
+      displayMatrix(inv);
+    });
+
+    window.addEventListener('load', () => {
+      dimensionForm.dispatchEvent(new Event('submit'));
     });
   </script>
 </body>
